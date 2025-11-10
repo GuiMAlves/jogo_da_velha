@@ -30,9 +30,9 @@ function Board({ xIsNext, squares, onPlay }) {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = 'Vencedor: ' + winner;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = 'Próximo jogador: ' + (xIsNext ? 'X' : 'O');
   }
 
   //Esta sendo retornado uma matriz 3x3, utilizando componente Square.
@@ -81,9 +81,9 @@ export default function Game() {
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
-      description = 'Go to move #' + move;
+      description = 'Ir para o movimento: #' + move;
     } else {
-      description = 'Go to game start';
+      description = 'Ir para o início do jogo';
     }
     return (
       <li key={move}>
