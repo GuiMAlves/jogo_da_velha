@@ -1,5 +1,7 @@
+//Importacao dos recursos necessarios.
 import { useState } from 'react';
 
+//Funcao que retorna o compontende do quadrado.
 function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
@@ -8,7 +10,9 @@ function Square({ value, onSquareClick }) {
   );
 }
 
+//Funcao retorna componente do quadro.
 function Board({ xIsNext, squares, onPlay }) {
+  //Funcao que captura o clique do mouse e atribui os itens x e o.
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
       return;
@@ -22,7 +26,7 @@ function Board({ xIsNext, squares, onPlay }) {
     onPlay(nextSquares);
   }
 
-  // Verifica se houve vencedor
+  //Verifica se houve vencedor
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
@@ -31,6 +35,7 @@ function Board({ xIsNext, squares, onPlay }) {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
+  //Esta sendo retornado uma matriz 3x3, utilizando componente Square.
   return (
     <>
       <div className="status">{status}</div>
@@ -53,22 +58,26 @@ function Board({ xIsNext, squares, onPlay }) {
   );
 }
 
+//Trata-se da funcao principal.
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
+  //Funcao que é chamada após o clique.
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
 
+  //Funcao que é chamada quando se clica em um item do histórico.
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
   }
 
+  //Adicionando uma nova linha no histórico.
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
@@ -95,6 +104,7 @@ export default function Game() {
   );
 }
 
+//Calcula e retorna o vencedor caso exista senão retorna nulo.
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
